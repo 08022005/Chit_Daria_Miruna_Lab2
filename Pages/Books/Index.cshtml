@@ -1,8 +1,8 @@
-@page
+@page "/"
 @model Chit_Daria_Miruna_Lab2.Pages.BookPages.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Books";
 }
 
 <h1>Index</h1>
@@ -14,32 +14,40 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Title)
+                @Html.DisplayNameFor(model => model.BookD.Books!.First().Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Authors.FullName)
+                @Html.DisplayNameFor(model => model.BookD.Books!.First().Authors!.FullName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Price)
+                @Html.DisplayNameFor(model => model.BookD.Books!.First().Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].PublishingDate)
+                @Html.DisplayNameFor(model => model.BookD.Books!.First().PublishingDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Book[0].Publisher.PublisherName)
+                @Html.DisplayNameFor(model => model.BookD.Books!.First().Publisher!.PublisherName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookD.Books!.First().BookCategories)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.Book)
+        @foreach (var item in Model.BookD.Books!)
         {
-            <tr>
+            string selectedRow = "";
+            if (item.ID == Model.BookID)
+            {
+                selectedRow = "table-success";
+            }
+            <tr class="@selectedRow">
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Authors.FullName)
+                    @Html.DisplayFor(modelItem => item.Authors!.FullName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
@@ -48,9 +56,19 @@
                     @Html.DisplayFor(modelItem => item.PublishingDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Publisher.PublisherName)
+                    @Html.DisplayFor(modelItem => item.Publisher!.PublisherName)
                 </td>
                 <td>
+                    @{
+                        foreach (var category in item.BookCategories!)
+                        {
+                            @category.Category!.ID
+                            @: @category.Category.CategoryName <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
                     <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
@@ -58,3 +76,4 @@
             </tr>
         }
     </tbody>
+</table>
