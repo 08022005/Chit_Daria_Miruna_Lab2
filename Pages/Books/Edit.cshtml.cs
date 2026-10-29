@@ -44,7 +44,8 @@ namespace Chit_Daria_Miruna_Lab2.Pages.Books
                 FullName = x.LastName + " " + x.FirstName
             });
 
-            ViewData["AuthorID"] = new SelectList(authorList, "ID", "FullName");
+            ViewData["AuthorsID"] = new SelectList(authorList, "ID", "FullName");
+            ViewData["AuthorID"] = ViewData["AuthorsID"];
             ViewData["PublisherID"] = new SelectList(_context.Publisher, "ID", "PublisherName");
 
             return Page();
