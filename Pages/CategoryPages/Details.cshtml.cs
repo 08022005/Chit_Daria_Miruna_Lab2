@@ -1,3 +1,5 @@
+
+using Chit_Daria_Miruna_Lab2.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
